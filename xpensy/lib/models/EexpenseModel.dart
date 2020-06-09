@@ -12,26 +12,17 @@ class ExModel {
       this.smalldesc,
       this.imgUrl,
       @required this.title});
-//   List<ExModel> expenses = [
-//     ExModel(amount: "200", dateTime: DateTime.now(), title: "Test")
-//   ];
-//   Map<String, dynamic> toMap() {
-//     var map = <String, dynamic>{
-//       'dateTime': dateTime,
-//       'title': title,
-//       'amount': amount,
-//       'smalldesc': smalldesc,
-//       'imgUrl': imgUrl
-//     };
-//     return map;
-//   }
-
-//   ExModel.fromMap(Map<String, dynamic> map) {
-//     dateTime = map['dateTime'];
-//     title = map['title'];
-//     amount = map['amount'];
-//     smalldesc = map['smalldesc'];
-//     imgUrl = map['imgUrl'];
-//   }
-// }
 }
+
+List<ExModel> expenses = [
+  ExModel(
+      amount: "100",
+      dateTime: DateTime.now(),
+      title: "Mo:Mo",
+      imgUrl: "https://i.ytimg.com/vi/7tdUCk9pLPw/maxresdefault.jpg"),
+  ExModel(
+      amount: "200",
+      dateTime: DateTime.now(),
+      title: "Chowmein",
+      imgUrl: "https://c.ndtvimg.com/mnng9ei8_chowmein_640x480_25_July_18.jpg")
+];

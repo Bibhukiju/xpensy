@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutterapp/models/expensesModel.dart';
+import 'package:xpensy/models/EexpenseModel.dart';
+import 'package:xpensy/pages/addExpenses.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -8,19 +9,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<ExModel> expenses = [
-    ExModel(
-        amount: "100",
-        dateTime: DateTime.now(),
-        title: "Hello",
-        imgUrl: "https://i.ytimg.com/vi/7tdUCk9pLPw/maxresdefault.jpg"),
-    ExModel(
-        amount: "200",
-        dateTime: DateTime.now(),
-        title: "Chowmein",
-        imgUrl:
-            "https://c.ndtvimg.com/mnng9ei8_chowmein_640x480_25_July_18.jpg")
-  ];
   var _selecteddate;
   var sdate;
   @override
@@ -43,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Expanded(
                         flex: 2,
-                        child: Container(color: Colors.white),
+                        child: Container(),
                       )
                     ],
                   ),
@@ -57,9 +45,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>[
-                        Icon(
-                          Icons.image,
+                        IconButton(
+                          icon: Icon(Icons.image),
                           color: Theme.of(context).primaryColor,
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    AddExpenses()));
+                          },
                         ),
                         Icon(
                           Icons.camera,
@@ -108,26 +101,34 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: MediaQuery.of(context).size.height / 7,
                       child: Card(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            CircleAvatar(
-                              radius: MediaQuery.of(context).size.height / 15,
-                              backgroundImage: NetworkImage(
-                                  expenses.elementAt(index).imgUrl),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: CircleAvatar(
+                                radius: MediaQuery.of(context).size.height / 15,
+                                backgroundImage: NetworkImage(
+                                    expenses.elementAt(index).imgUrl),
+                              ),
                             ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Text(expenses.elementAt(index).title,
-                                    style: TextStyle(
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                                Text(expenses.elementAt(index).amount,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ))
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.all(18.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Text(expenses.elementAt(index).title,
+                                      style: TextStyle(
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  Text(expenses.elementAt(index).amount,
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                      ))
+                                ],
+                              ),
                             )
                           ],
                         ),

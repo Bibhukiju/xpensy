@@ -7,7 +7,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
+      theme: ThemeData(
+        primaryColor: Colors.deepPurple.shade900,
+        accentColor: Colors.red
+      ),
     );
   }
 }
