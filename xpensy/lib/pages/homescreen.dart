@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/EexpenseModel.dart';
 import 'package:xpensy/pages/addExpenses.dart';
 
@@ -54,10 +55,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     AddExpenses()));
                           },
                         ),
-                        Icon(
-                          Icons.camera,
+                        IconButton(
+                          icon: Icon(Icons.camera),
                           color: Theme.of(context).primaryColor,
-                          size: 50,
+                          onPressed: () async {
+                            List<Map<String, dynamic>> queryRows =
+                                await DatabaseHelper.instance.queryAll();
+                            print(queryRows);
+                          },
                         ),
                         Icon(
                           Icons.not_interested,
@@ -107,8 +112,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: CircleAvatar(
                                 radius: MediaQuery.of(context).size.height / 15,
-                                backgroundImage: NetworkImage(
-                                    expenses.elementAt(index).imgUrl),
+                                // backgroundImage: NetworkImage(
+                                //     expenses.elementAt(index).imgUrl),
                               ),
                             ),
                             Padding(

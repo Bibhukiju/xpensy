@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/pages/homescreen.dart';
 
 class AddExpenses extends StatefulWidget {
@@ -8,7 +9,7 @@ class AddExpenses extends StatefulWidget {
 }
 
 class _AddExpensesState extends State<AddExpenses> {
-  DateTime _selecteddate;
+  String _selecteddate;
   TextEditingController amount = TextEditingController();
   TextEditingController smallDesc = TextEditingController();
   @override
@@ -33,7 +34,7 @@ class _AddExpensesState extends State<AddExpenses> {
               )),
             ],
           ),
-         Container(
+          Container(
             margin: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
@@ -67,7 +68,7 @@ class _AddExpensesState extends State<AddExpenses> {
                           DatePicker.showDateTimePicker(context,
                               onConfirm: (date) {
                             setState(() {
-                              _selecteddate = date;
+                              _selecteddate = date.toString().split(" ")[0];
                             });
                           }, currentTime: DateTime.now());
                         },
@@ -99,7 +100,13 @@ class _AddExpensesState extends State<AddExpenses> {
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>HomeScreen()));
+          DatabaseHelper.instance.insert({
+            DatabaseHelper.cAmount: amount.text,
+            DatabaseHelper.cDesc: smallDesc.text,
+            DatabaseHelper.cDate: _selecteddate
+          });
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (BuildContext context) => HomeScreen()));
         },
       ),
     );
