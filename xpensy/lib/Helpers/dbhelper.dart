@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:xpensy/models/expenseModel.dart';
 
 class DBHelper {
   static final _dbname = 'myDb.db';
@@ -23,7 +24,7 @@ class DBHelper {
   }
 
   _initiateDb() async {
-    Directory directory = await getApplicationSupportDirectory();
+    Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, _dbname);
     return await openDatabase(path, version: _dbversion, onCreate: _onCreate);
   }
@@ -35,7 +36,8 @@ class DBHelper {
 
   Future<List<Map<String, dynamic>>> queryAll() async {
     Database db = await instance.database;
-    return await db.query(_tableName);
+    var result = await db.query(_tableName);
+    return result;
   }
 
   Future update(Map<String, dynamic> row) async {
@@ -57,5 +59,14 @@ class DBHelper {
     $cdate TEXT NOT NULL,
     $desc Text NOT NULL)
     ''');
+  }
+
+  Future<List<Expenses>> getExpendedList() async {
+    var expenseMapList = await queryAll();
+    List<Expenses> expenseList = List<Expenses>();
+    for (var i = 0; i < 2; i++) {
+      expenseList.add(Expenses.fromJsonMap(expenseMapList[i]));
+    }
+    return expenseList;
   }
 }

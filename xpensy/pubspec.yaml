@@ -16,6 +16,7 @@ dependencies:
   flutter_datetime_picker:
   sqflite:
   path_provider:
+  provider:
 
 dev_dependencies:
   flutter_test:

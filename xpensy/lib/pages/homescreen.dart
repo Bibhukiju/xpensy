@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:xpensy/models/EexpenseModel.dart';
+import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/pages/addExpenses.dart';
-import '../Helpers/dbhelper.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,6 +11,20 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _selecteddate;
   var sdate;
+  List listExp;
+  rawQuery() async {
+    final res = await DBHelper.instance.queryAll();
+    setState(() {
+      listExp = res.toList();
+    });
+  }
+
+  @override
+  void initState() {
+    rawQuery();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -97,50 +110,14 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? Icon(Icons.calendar_today)
                         : Text("$_selecteddate"))),
             Container(
-                height: 300,
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-                child: ListView.builder(
-                  itemCount: expenses.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      height: MediaQuery.of(context).size.height / 7,
-                      child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: CircleAvatar(
-                                radius: MediaQuery.of(context).size.height / 15,
-                                // backgroundImage: NetworkImage(
-                                //     expenses.elementAt(index).imgUrl),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  Text(expenses.elementAt(index).title,
-                                      style: TextStyle(
-                                        fontSize: 32,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  Text(expenses.elementAt(index).amount,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                      ))
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ))
+                child: ListView(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text(DBHelper.instance.queryAll().toString()),
+                    )
+                  ],
+                )),
           ],
         ),
       ),
