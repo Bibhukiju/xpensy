@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/EexpenseModel.dart';
 import 'package:xpensy/pages/addExpenses.dart';
+import '../Helpers/dbhelper.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           color: Theme.of(context).primaryColor,
                           onPressed: () async {
                             List<Map<String, dynamic>> queryRows =
-                                await DatabaseHelper.instance.queryAll();
+                                await DBHelper.instance.queryAll();
                             print(queryRows);
                           },
                         ),

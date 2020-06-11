@@ -4,27 +4,28 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
-class DatabaseHelper {
-  static final _dbname = 'myexpenses.db';
+class DBHelper {
+  static final _dbname = 'myDb.db';
   static final _dbversion = 1;
-  static final _tableName = 'xpense';
+  static final _tableName = 'myTable';
   static final columnId = "id";
-  static final cAmount = "Amount";
-  static final cDesc = "Desc";
-  static final cDate = "DOExpense";
-  DatabaseHelper._privateConstructor();
-  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+  static final amount = "amount";
+  static final desc = "desc";
+  static final cdate = "date";
+  DBHelper._privateConstructor();
+  static final DBHelper instance = DBHelper._privateConstructor();
+
   static Database _database;
   Future<Database> get database async {
     if (_database != null) return _database;
-    _database = await _initDB();
+    _database = await _initiateDb();
     return _database;
   }
 
-  _initDB() async {
+  _initiateDb() async {
     Directory directory = await getApplicationSupportDirectory();
     String path = join(directory.path, _dbname);
-    return await openDatabase(path, version: _dbversion, onCreate: _onCreated);
+    return await openDatabase(path, version: _dbversion, onCreate: _onCreate);
   }
 
   Future<int> insert(Map<String, dynamic> row) async {
@@ -37,14 +38,24 @@ class DatabaseHelper {
     return await db.query(_tableName);
   }
 
-  FutureOr<void> _onCreated(Database db, int version) {
-    db.execute('''
-    CREATE TABLE $_tableName(
-      $columnId INTEGER PRIMARY KEY,
-      $cAmount TEXT NOT NULL,
-      $cDesc TEXT ,
-      $cDate TEXT NOT NULL,
-    )
+  Future update(Map<String, dynamic> row) async {
+    Database db = await instance.database;
+    int id = row[columnId];
+    return await db
+        .update(_tableName, row, where: '$columnId=?', whereArgs: [id]);
+  }
+
+  Future<int> delete(int id) async {
+    Database db = await instance.database;
+    return await db.delete(_tableName, where: '$columnId=?', whereArgs: [id]);
+  }
+
+  FutureOr<void> _onCreate(Database db, int version) {
+    db.execute('''CREATE TABLE $_tableName
+    ($columnId INTEGER PRIMARY KEY,
+    $amount TEXT NOT NULL,
+    $cdate TEXT NOT NULL,
+    $desc Text NOT NULL)
     ''');
   }
 }

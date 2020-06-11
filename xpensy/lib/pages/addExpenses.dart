@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:xpensy/Helpers/dbhelper.dart';
+import 'package:xpensy/Helpers/DBHelper.dart';
 import 'package:xpensy/pages/homescreen.dart';
 
 class AddExpenses extends StatefulWidget {
@@ -100,10 +100,10 @@ class _AddExpensesState extends State<AddExpenses> {
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () {
-          DatabaseHelper.instance.insert({
-            DatabaseHelper.cAmount: amount.text,
-            DatabaseHelper.cDesc: smallDesc.text,
-            DatabaseHelper.cDate: _selecteddate
+          DBHelper.instance.insert({
+            DBHelper.amount: amount.text,
+            DBHelper.desc: smallDesc.text,
+            DBHelper.cdate: _selecteddate
           });
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => HomeScreen()));
