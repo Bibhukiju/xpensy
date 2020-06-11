@@ -103,7 +103,7 @@ class _AddExpensesState extends State<AddExpenses> {
           DBHelper.instance.insert({
             DBHelper.desc: smallDesc.text,
             DBHelper.cdate: DateTime.now().toString().split(" ")[0],
-            DBHelper.amount: "100"
+            DBHelper.amount: amount.text
           });
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => HomeScreen()));

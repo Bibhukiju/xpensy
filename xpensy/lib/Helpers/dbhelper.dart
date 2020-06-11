@@ -13,6 +13,7 @@ class DBHelper {
   static final amount = "amount";
   static final desc = "desc";
   static final cdate = "date";
+  var inte;
   DBHelper._privateConstructor();
   static final DBHelper instance = DBHelper._privateConstructor();
 
@@ -36,8 +37,7 @@ class DBHelper {
 
   Future<List<Map<String, dynamic>>> queryAll() async {
     Database db = await instance.database;
-    var result = await db.query(_tableName);
-    return result;
+    return await db.query(_tableName);
   }
 
   Future update(Map<String, dynamic> row) async {
@@ -64,7 +64,8 @@ class DBHelper {
   Future<List<Expenses>> getExpendedList() async {
     var expenseMapList = await queryAll();
     List<Expenses> expenseList = List<Expenses>();
-    for (var i = 0; i < 2; i++) {
+    var count = expenseMapList.length;
+    for (var i = 0; i < count; i++) {
       expenseList.add(Expenses.fromJsonMap(expenseMapList[i]));
     }
     return expenseList;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
+import 'package:xpensy/models/expenseModel.dart';
 import 'package:xpensy/pages/addExpenses.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -11,18 +12,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _selecteddate;
   var sdate;
-  List listExp;
-  rawQuery() async {
-    final res = await DBHelper.instance.queryAll();
+  List<Expenses> expernse;
+  myQuery() async {
+    Future<List> _futureList = DBHelper.instance.getExpendedList();
+    List<Expenses> listexp = await _futureList;
     setState(() {
-      listExp = res.toList();
+      expernse = listexp;
     });
   }
 
   @override
   void initState() {
-    rawQuery();
     super.initState();
+    myQuery();
   }
 
   @override
@@ -111,13 +113,51 @@ class _HomeScreenState extends State<HomeScreen> {
                         : Text("$_selecteddate"))),
             Container(
                 margin: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-                child: ListView(
-                  children: <Widget>[
-                    ListTile(
-                      title: Text(DBHelper.instance.queryAll().toString()),
-                    )
-                  ],
-                )),
+                child: ListView.builder(
+                    itemCount: expernse.length,
+                    itemBuilder: (BuildContext context, int index) => Container(
+                          height: MediaQuery.of(context).size.height / 6,
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                                width: double.infinity,
+                                child: Card(
+                                  child: Positioned(
+                                    right: 10,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Text(
+                                          expernse.elementAt(index).desc,
+                                          style: TextStyle(
+                                              fontSize: 32,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          expernse.elementAt(index).amount,
+                                          style:TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.w400),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                left: 20,
+                                top: 30,
+                                child: CircleAvatar(
+                                    radius:
+                                        MediaQuery.of(context).size.height / 20,
+                                    child: Icon(Icons.not_interested)),
+                              ),
+                            ],
+                          ),
+                        ))),
           ],
         ),
       ),
