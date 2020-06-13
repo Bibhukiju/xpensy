@@ -13,13 +13,13 @@ class DBHelper {
   static final amount = "amount";
   static final desc = "desc";
   static final cdate = "date";
-  var inte;
+  static final photoname = "photoname";
   DBHelper._privateConstructor();
   static final DBHelper instance = DBHelper._privateConstructor();
 
   static Database _database;
   Future<Database> get database async {
-    if (_database != null) return _database;
+    if (_database != null) return _database; 
     _database = await _initiateDb();
     return _database;
   }
@@ -63,7 +63,9 @@ class DBHelper {
     ($columnId INTEGER PRIMARY KEY,
     $amount TEXT NOT NULL,
     $cdate TEXT NOT NULL,
-    $desc Text NOT NULL)
+    $desc Text NOT NULL,
+    $photoname TEXT
+    )
     ''');
   }
 

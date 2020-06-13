@@ -1,17 +1,24 @@
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/pages/homescreen.dart';
 
-class AddExpenses extends StatefulWidget {
+class AddExpwithImg extends StatefulWidget {
   @override
-  _AddExpensesState createState() => _AddExpensesState();
+  _AddExpwithImgState createState() => _AddExpwithImgState();
 }
 
-class _AddExpensesState extends State<AddExpenses> {
+class _AddExpwithImgState extends State<AddExpwithImg> {
   String _selecteddate;
   TextEditingController amount = TextEditingController();
   TextEditingController smallDesc = TextEditingController();
+  Future<File> imageFile;
+  File image;
+  final picker = ImagePicker();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,8 +34,31 @@ class _AddExpensesState extends State<AddExpenses> {
             margin: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 10,
+                GestureDetector(
+                  onTap: () async {
+                    final pickedImg =
+                        await picker.getImage(source: ImageSource.gallery);
+                    setState(() {
+                      image = File(pickedImg.path);
+                    });
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 4,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: image != null
+                          ? Card(
+                              child: Image.file(image),
+                            )
+                          : Card(
+                              elevation: 10,
+                              child: Icon(
+                                Icons.add_a_photo,
+                                color: Theme.of(context).primaryColor,
+                                size: MediaQuery.of(context).size.height / 10,
+                              )),
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -130,8 +160,9 @@ class _AddExpensesState extends State<AddExpenses> {
             DBHelper.desc: smallDesc.text,
             DBHelper.cdate: DateTime.now().toString().split(" ")[0],
             DBHelper.amount: amount.text,
-            DBHelper.photoname: " "
+            DBHelper.photoname: base64Encode(image.readAsBytesSync())
           });
+
           Navigator.of(context).push(MaterialPageRoute(
               builder: (BuildContext context) => HomeScreen()));
         },

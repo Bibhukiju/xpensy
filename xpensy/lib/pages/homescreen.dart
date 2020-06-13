@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/expenseModel.dart';
+
 import 'package:xpensy/pages/addExpenses.dart';
+import 'package:xpensy/pages/addexpwithimg.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -90,10 +94,14 @@ class _HomeScreenState extends State<HomeScreen> {
                             print(queryRows);
                           },
                         ),
-                        Icon(
-                          Icons.not_interested,
-                          color: Theme.of(context).primaryColor,
-                        ),
+                        IconButton(
+                            icon: Icon(Icons.not_interested),
+                            color: Theme.of(context).primaryColor,
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      AddExpwithImg()));
+                            }),
                       ],
                     ),
                   ),
@@ -142,20 +150,42 @@ class _HomeScreenState extends State<HomeScreen> {
                                 title: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
-                                    CircleAvatar(
-                                      radius:
-                                          MediaQuery.of(context).size.height /
-                                              20,
-                                      backgroundColor:
-                                          Theme.of(context).primaryColor,
-                                      child: Icon(
-                                        Icons.image,
-                                        size:
-                                            MediaQuery.of(context).size.height /
+                                    expernse.elementAt(index).photoname == " "
+                                        ? CircleAvatar(
+                                            backgroundColor: Colors.deepPurple,
+                                            radius: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
                                                 20,
-                                        color: Colors.white,
-                                      ),
-                                    ),
+                                            child: Icon(
+                                              Icons.not_interested,
+                                              color: Colors.white,
+                                              size: 45,
+                                            ),
+                                          )
+                                        : Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.deepPurple,
+                                                borderRadius:
+                                                    BorderRadius.circular(900)),
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                10,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                10,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(900),
+                                              child: Image.memory(
+                                                base64Decode(expernse
+                                                    .elementAt(index)
+                                                    .photoname),
+                                                fit: BoxFit.contain,
+                                              ),
+                                            )),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width /
                                           10,
