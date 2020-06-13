@@ -8,6 +8,8 @@ import 'package:xpensy/models/expenseModel.dart';
 import 'package:xpensy/pages/addExpenses.dart';
 import 'package:xpensy/pages/addexpwithimg.dart';
 
+import 'details.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -146,6 +148,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20)),
                               child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          Details(
+                                            expenses: expernse.elementAt(index),
+                                          )));
+                                },
                                 contentPadding: EdgeInsets.all(10),
                                 title: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -179,11 +188,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(900),
-                                              child: Image.memory(
-                                                base64Decode(expernse
-                                                    .elementAt(index)
-                                                    .photoname),
-                                                fit: BoxFit.contain,
+                                              child: AspectRatio(
+                                                aspectRatio: 4 / 3,
+                                                child: Image.memory(
+                                                  base64Decode(expernse
+                                                      .elementAt(index)
+                                                      .photoname),
+                                                  fit: BoxFit.contain,
+                                                ),
                                               ),
                                             )),
                                     SizedBox(
