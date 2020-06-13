@@ -12,6 +12,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   var _selecteddate;
   var sdate;
+  bool pressed = false;
+  var total = 0;
+
   List<Expenses> expernse;
   myQuery() async {
     Future<List> _futureList = DBHelper.instance.getExpendedList();
@@ -29,6 +32,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    void gettotal() async {
+      for (var i = 0; i < expernse.length; i++) {
+        setState(() {
+          total += int.parse(expernse.elementAt(i).amount);
+        });
+      }
+    }
+
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -89,12 +100,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 )
               ],
             ),
-            Text(
-              "All Records",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400),
+            Positioned(
+              left: 15,
+              top: 10,
+              child: Text(
+                "All Records",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400),
+              ),
             ),
             Positioned(
                 right: 10,
@@ -111,53 +126,120 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: _selecteddate == null
                         ? Icon(Icons.calendar_today)
                         : Text("$_selecteddate"))),
-            Container(
-                margin: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
-                child: ListView.builder(
-                    itemCount: expernse.length,
-                    itemBuilder: (BuildContext context, int index) => Container(
-                          height: MediaQuery.of(context).size.height / 6,
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                                width: double.infinity,
+            expernse == null
+                ? Container()
+                : Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 60),
+                    child: ListView.builder(
+                        itemCount: expernse.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            Container(
                                 child: Card(
-                                  child: Positioned(
-                                    right: 10,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.all(10),
+                                title: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      radius:
+                                          MediaQuery.of(context).size.height /
+                                              20,
+                                      backgroundColor:
+                                          Theme.of(context).primaryColor,
+                                      child: Icon(
+                                        Icons.image,
+                                        size:
+                                            MediaQuery.of(context).size.height /
+                                                20,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Text(
+                                            expernse.elementAt(index).desc,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 20),
+                                          ),
+                                          Text(expernse.elementAt(index).amount)
+                                        ],
+                                      ),
+                                    ),
+                                    Column(
                                       children: <Widget>[
-                                        Text(
-                                          expernse.elementAt(index).desc,
-                                          style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold),
+                                        IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              expernse.removeAt(index);
+                                            });
+                                            DBHelper.instance.deletee(
+                                                expernse.elementAt(index).id);
+                                          },
+                                          icon: Icon(
+                                            Icons.delete_outline,
+                                            size: 30,
+                                          ),
+                                          color: Colors.red,
                                         ),
                                         Text(
-                                          expernse.elementAt(index).amount,
-                                          style:TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.w400),
-                                        )
+                                          expernse.elementAt(index).date,
+                                          style: TextStyle(fontSize: 10),
+                                        ),
                                       ],
+                                    )
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  children: <Widget>[
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.6,
                                     ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                              Positioned(
-                                left: 20,
-                                top: 30,
-                                child: CircleAvatar(
-                                    radius:
-                                        MediaQuery.of(context).size.height / 20,
-                                    child: Icon(Icons.not_interested)),
-                              ),
-                            ],
-                          ),
-                        ))),
+                            ))),
+                  ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height / 10,
+              right: 10,
+              child: Card(
+                child: GestureDetector(
+                  onTap: () {
+                    if (!pressed) {
+                      gettotal();
+                      print(total);
+                      setState(() {
+                        pressed = true;
+                      });
+                    } else {
+                      setState(() {
+                        pressed = false;
+                        total = -total;
+                      });
+                      gettotal();
+                    }
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      !pressed ? "Get Total" : "Total: " + total.toString(),
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

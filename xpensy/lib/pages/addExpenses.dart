@@ -18,79 +18,105 @@ class _AddExpensesState extends State<AddExpenses> {
       appBar: AppBar(
         brightness: Brightness.dark,
         title: Text("Add Expenses"),
+        centerTitle: true,
       ),
       body: Stack(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Expanded(
-                  flex: 2,
-                  child: Container(
-                    color: Theme.of(context).primaryColor,
-                  )),
-              Expanded(
-                  child: Container(
-                color: Colors.white,
-              )),
-            ],
-          ),
+          _buildBackground(context),
           Container(
             margin: EdgeInsets.all(10),
             child: ListView(
               children: <Widget>[
-                Card(
-                    elevation: 10,
-                    color: Colors.white,
-                    child: TextField(
-                      controller: amount,
-                      decoration: InputDecoration(
-                        hintText: "Amount",
-                      ),
-                      keyboardType: TextInputType.number,
-                    )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                      elevation: 10,
+                      color: Colors.white,
+                      child: TextField(
+                        controller: amount,
+                        decoration: InputDecoration(
+                            hintText: "  Amount",
+                            prefixText: "Rs: ",
+                            prefixStyle: TextStyle(
+                              color: Colors.red[500],
+                              fontSize: 20,
+                            ),
+                            contentPadding: EdgeInsets.all(20)),
+                        keyboardType: TextInputType.number,
+                      )),
+                ),
                 SizedBox(height: 20),
-                Card(
-                    elevation: 10,
-                    color: Colors.white,
-                    child: TextField(
-                      controller: smallDesc,
-                      maxLines: 7,
-                      decoration: InputDecoration(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                      elevation: 10,
+                      color: Colors.white,
+                      child: TextField(
+                        controller: smallDesc,
+                        maxLines: 7,
+                        decoration: InputDecoration(
                           hintText: "Short Description",
-                          prefixIcon: Icon(Icons.note)),
-                    )),
+                          contentPadding: EdgeInsets.all(20),
+                          prefixIcon: Icon(
+                            Icons.note,
+                            color: Colors.red,
+                          ),
+                        ),
+                      )),
+                ),
                 SizedBox(height: 20),
-                Card(
-                    elevation: 10,
-                    color: Colors.white,
-                    child: FlatButton(
-                        onPressed: () {
-                          DatePicker.showDateTimePicker(context,
-                              onConfirm: (date) {
-                            setState(() {
-                              _selecteddate = date.toString().split(" ")[0];
-                            });
-                          }, currentTime: DateTime.now());
-                        },
-                        child: _selecteddate == null
-                            ? Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.grey,
-                                  ),
-                                  Text(DateTime.now().toString().split(" ")[0]),
-                                ],
-                              )
-                            : Row(
-                                children: <Widget>[
-                                  Icon(
-                                    Icons.calendar_today,
-                                    color: Colors.deepPurple,
-                                  ),
-                                  Text("$_selecteddate"),
-                                ],
-                              )))
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Card(
+                      elevation: 10,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: FlatButton(
+                            onPressed: () {
+                              DatePicker.showDateTimePicker(context,
+                                  onConfirm: (date) {
+                                setState(() {
+                                  _selecteddate = date.toString().split(" ")[0];
+                                });
+                              }, currentTime: DateTime.now());
+                            },
+                            child: _selecteddate == null
+                                ? Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.calendar_today,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                20,
+                                      ),
+                                      Text(DateTime.now()
+                                          .toString()
+                                          .split(" ")[0]),
+                                    ],
+                                  )
+                                : Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.calendar_today,
+                                        color: Colors.red,
+                                      ),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                20,
+                                      ),
+                                      Text("$_selecteddate"),
+                                    ],
+                                  )),
+                      )),
+                )
               ],
             ),
           )
@@ -109,6 +135,22 @@ class _AddExpensesState extends State<AddExpenses> {
               builder: (BuildContext context) => HomeScreen()));
         },
       ),
+    );
+  }
+
+  Row _buildBackground(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        Expanded(
+            flex: 2,
+            child: Container(
+              color: Theme.of(context).primaryColor,
+            )),
+        Expanded(
+            child: Container(
+          color: Colors.white,
+        )),
+      ],
     );
   }
 }

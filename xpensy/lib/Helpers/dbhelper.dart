@@ -47,6 +47,12 @@ class DBHelper {
         .update(_tableName, row, where: '$columnId=?', whereArgs: [id]);
   }
 
+  Future<int> deletee(int id) async {
+    Database database = await instance.database;
+    return await database
+        .rawDelete('DELETE FROM $_tableName WHERE id = ?', ['id']);
+  }
+
   Future<int> delete(int id) async {
     Database db = await instance.database;
     return await db.delete(_tableName, where: '$columnId=?', whereArgs: [id]);
