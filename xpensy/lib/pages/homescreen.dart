@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   base64Decode(expernse
                                                       .elementAt(index)
                                                       .photoname),
-                                                  fit: BoxFit.contain,
+                                                  fit: BoxFit.fitWidth,
                                                 ),
                                               ),
                                             )),
