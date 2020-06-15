@@ -1,13 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/expenseModel.dart';
-
 import 'package:xpensy/pages/addExpenses.dart';
 import 'package:xpensy/pages/addexpwithimg.dart';
-
 import 'details.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -188,16 +185,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                             child: ClipRRect(
                                               borderRadius:
                                                   BorderRadius.circular(900),
-                                              child: AspectRatio(
-                                                aspectRatio: 4 / 3,
-                                                child: Image.memory(
-                                                  base64Decode(expernse
-                                                      .elementAt(index)
-                                                      .photoname),
-                                                  fit: BoxFit.fitWidth,
-                                                ),
+                                              child: Image.memory(
+                                                base64Decode(expernse
+                                                    .elementAt(index)
+                                                    .photoname),
+                                                fit: BoxFit.fitWidth,
                                               ),
-                                            )),
+                                            ),
+                                          ),
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width /
                                           10,
