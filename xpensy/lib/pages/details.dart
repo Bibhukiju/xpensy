@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:xpensy/Helpers/dbhelper.dart';
 import '../models/expenseModel.dart';
 
 class Details extends StatelessWidget {
@@ -84,7 +85,37 @@ class Details extends StatelessWidget {
                       child: Center(child: Text("Date: " + expenses.date)),
                     ),
                   ),
-                )
+                ),
+              ],
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: Container(
+                  height: MediaQuery.of(context).size.height / 7,
+                  child: Card(
+                    child: Icon(Icons.edit),
+                  ),
+                )),
+                Expanded(
+                    child: Container(
+                  height: MediaQuery.of(context).size.height / 7,
+                  child: GestureDetector(
+                    onTap: () async {
+                      await DBHelper.instance.deletee(expenses.id);
+                      Navigator.of(context).pop();
+                    },
+                    child: Card(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.delete_outline, color: Colors.red),
+                          Text("Delete")
+                        ],
+                      ),
+                    ),
+                  ),
+                ))
               ],
             )
           ],

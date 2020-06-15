@@ -174,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           )
                                         : Container(
                                             decoration: BoxDecoration(
-                                                color: Colors.deepPurple,
+                                                color: Colors.transparent,
                                                 borderRadius:
                                                     BorderRadius.circular(900)),
                                             height: MediaQuery.of(context)
@@ -220,12 +220,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Column(
                                       children: <Widget>[
                                         IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              expernse.removeAt(index);
-                                            });
-                                            DBHelper.instance.deletee(
+                                          onPressed: () async {
+                                            await DBHelper.instance.delete(
                                                 expernse.elementAt(index).id);
+                                            Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                    builder: (BuildContext
+                                                            context) =>
+                                                        HomeScreen()));
                                           },
                                           icon: Icon(
                                             Icons.delete_outline,
@@ -267,9 +269,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     } else {
                       setState(() {
                         pressed = false;
-                        total = -total;
+                        total = 0;
                       });
-                      gettotal();
                     }
                   },
                   child: Padding(
