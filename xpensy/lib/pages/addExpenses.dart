@@ -19,6 +19,7 @@ class _AddExpensesState extends State<AddExpenses> {
         brightness: Brightness.dark,
         title: Text("Add Expenses"),
         centerTitle: true,
+        elevation: 0,
       ),
       body: Stack(
         children: <Widget>[

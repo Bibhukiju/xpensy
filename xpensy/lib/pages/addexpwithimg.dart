@@ -26,131 +26,138 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
         brightness: Brightness.dark,
         title: Text("Add Expenses"),
         centerTitle: true,
+        elevation: 0,
       ),
-      body: Stack(
-        children: <Widget>[
-          _buildBackground(context),
-          Container(
-            margin: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                GestureDetector(
-                  onTap: () async {
-                    final pickedImg =
-                        await picker.getImage(source: ImageSource.gallery);
-                    setState(() {
-                      image = File(pickedImg.path);
-                    });
-                  },
-                  child: Container(
-                    height: MediaQuery.of(context).size.height / 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: image != null
-                          ? Card(
-                              child: Image.file(image),
-                            )
-                          : Card(
-                              elevation: 10,
-                              child: Icon(
-                                Icons.add_a_photo,
-                                color: Theme.of(context).primaryColor,
-                                size: MediaQuery.of(context).size.height / 10,
-                              )),
+      body: Hero(
+        tag: "butto",
+        child: Stack(
+          children: <Widget>[
+            _buildBackground(context),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: ListView(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      final pickedImg =
+                          await picker.getImage(source: ImageSource.gallery);
+                      setState(() {
+                        image = File(pickedImg.path);
+                      });
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 4,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: image != null
+                            ? Card(
+                                child: Image.file(image),
+                              )
+                            : Card(
+                                elevation: 10,
+                                child: Icon(
+                                  Icons.add_a_photo,
+                                  color: Theme.of(context).primaryColor,
+                                  size: MediaQuery.of(context).size.height / 10,
+                                )),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                      elevation: 10,
-                      color: Colors.white,
-                      child: TextField(
-                        controller: amount,
-                        decoration: InputDecoration(
-                            hintText: "  Amount",
-                            prefixText: "Rs: ",
-                            prefixStyle: TextStyle(
-                              color: Colors.red[500],
-                              fontSize: 20,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: TextField(
+                          controller: amount,
+                          decoration: InputDecoration(
+                              hintText: "  Amount",
+                              prefixText: "Rs: ",
+                              prefixStyle: TextStyle(
+                                color: Colors.red[500],
+                                fontSize: 20,
+                              ),
+                              contentPadding: EdgeInsets.all(20)),
+                          keyboardType: TextInputType.number,
+                        )),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: TextField(
+                          controller: smallDesc,
+                          maxLines: 7,
+                          decoration: InputDecoration(
+                            hintText: "Short Description",
+                            contentPadding: EdgeInsets.all(20),
+                            prefixIcon: Icon(
+                              Icons.note,
+                              color: Colors.red,
                             ),
-                            contentPadding: EdgeInsets.all(20)),
-                        keyboardType: TextInputType.number,
-                      )),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                      elevation: 10,
-                      color: Colors.white,
-                      child: TextField(
-                        controller: smallDesc,
-                        maxLines: 7,
-                        decoration: InputDecoration(
-                          hintText: "Short Description",
-                          contentPadding: EdgeInsets.all(20),
-                          prefixIcon: Icon(
-                            Icons.note,
-                            color: Colors.red,
                           ),
-                        ),
-                      )),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                      elevation: 10,
-                      color: Colors.white,
-                      child: Padding(
-                        padding: const EdgeInsets.all(2),
-                        child: FlatButton(
-                            onPressed: () {
-                              DatePicker.showDateTimePicker(context,
-                                  onConfirm: (date) {
-                                setState(() {
-                                  _selecteddate = date.toString().split(" ")[0];
-                                });
-                              }, currentTime: DateTime.now());
-                            },
-                            child: _selecteddate == null
-                                ? Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.calendar_today,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                20,
-                                      ),
-                                      Text(DateTime.now()
-                                          .toString()
-                                          .split(" ")[0]),
-                                    ],
-                                  )
-                                : Row(
-                                    children: <Widget>[
-                                      Icon(
-                                        Icons.calendar_today,
-                                        color: Colors.red,
-                                      ),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                20,
-                                      ),
-                                      Text("$_selecteddate"),
-                                    ],
-                                  )),
-                      )),
-                )
-              ],
-            ),
-          )
-        ],
+                        )),
+                  ),
+                  SizedBox(height: 20),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                        elevation: 10,
+                        color: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(2),
+                          child: FlatButton(
+                              onPressed: () {
+                                DatePicker.showDateTimePicker(context,
+                                    onConfirm: (date) {
+                                  setState(() {
+                                    _selecteddate =
+                                        date.toString().split(" ")[0];
+                                  });
+                                }, currentTime: DateTime.now());
+                              },
+                              child: _selecteddate == null
+                                  ? Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.grey,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20,
+                                        ),
+                                        Text(DateTime.now()
+                                            .toString()
+                                            .split(" ")[0]),
+                                      ],
+                                    )
+                                  : Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          Icons.calendar_today,
+                                          color: Colors.red,
+                                        ),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              20,
+                                        ),
+                                        Text("$_selecteddate"),
+                                      ],
+                                    )),
+                        )),
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

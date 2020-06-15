@@ -108,8 +108,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             Positioned(
-              left: 15,
-              top: 10,
+              left: 10,
+              top: 24,
               child: Text(
                 "All Records",
                 style: TextStyle(
@@ -169,27 +169,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                               size: 45,
                                             ),
                                           )
-                                        : Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.transparent,
+                                        : Hero(
+                                            tag: expernse[index].id,
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          900)),
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  10,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  10,
+                                              child: ClipRRect(
                                                 borderRadius:
-                                                    BorderRadius.circular(900)),
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                10,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(900),
-                                              child: Image.memory(
-                                                base64Decode(expernse
-                                                    .elementAt(index)
-                                                    .photoname),
-                                                fit: BoxFit.fitWidth,
+                                                    BorderRadius.circular(900),
+                                                child: Image.memory(
+                                                  base64Decode(expernse
+                                                      .elementAt(index)
+                                                      .photoname),
+                                                  fit: BoxFit.fitWidth,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -215,14 +219,44 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Column(
                                       children: <Widget>[
                                         IconButton(
-                                          onPressed: () async {
-                                            await DBHelper.instance.delete(
-                                                expernse.elementAt(index).id);
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        HomeScreen()));
+                                          onPressed: () {
+                                            showDialog(
+                                                context: context,
+                                                child: SimpleDialog(
+                                                  title: Text(
+                                                      "Do you want to delete"),
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  children: <Widget>[
+                                                    SimpleDialogOption(
+                                                      child: Text(
+                                                        "Delete",
+                                                        style: TextStyle(
+                                                            color: Colors.red),
+                                                      ),
+                                                      onPressed: () async {
+                                                        await DBHelper.instance
+                                                            .delete(expernse
+                                                                .elementAt(
+                                                                    index)
+                                                                .id);
+                                                        Navigator.of(context).push(
+                                                            MaterialPageRoute(
+                                                                builder: (BuildContext
+                                                                        context) =>
+                                                                    HomeScreen()));
+                                                      },
+                                                    ),
+                                                    SimpleDialogOption(
+                                                      child: Text("cancel"),
+                                                      onPressed: () =>
+                                                          Navigator.of(context)
+                                                              .pop(),
+                                                    )
+                                                  ],
+                                                ));
                                           },
                                           icon: Icon(
                                             Icons.delete_outline,

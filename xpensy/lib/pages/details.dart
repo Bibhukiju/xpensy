@@ -26,11 +26,14 @@ class Details extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20)),
               child: expenses.photoname == " "
                   ? Text("")
-                  : ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.memory(
-                        base64Decode(expenses.photoname),
-                        fit: BoxFit.fitWidth,
+                  : Hero(
+                      tag: expenses.id,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.memory(
+                          base64Decode(expenses.photoname),
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
             ),
@@ -139,12 +142,35 @@ class Details extends StatelessWidget {
                             ))))),
                 Expanded(
                     child: GestureDetector(
-                      onTap: ()
-                      {
-                        DBHelper.instance.delete(expenses.id);
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context)=>HomeScreen()
+                  onTap: () {
+                    showDialog(
+                        context: context,
+                        child: SimpleDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          title: Text("Do you want to delete?"),
+                          contentPadding: EdgeInsets.all(10),
+                          titlePadding: EdgeInsets.all(10),
+                          children: <Widget>[
+                            SimpleDialogOption(
+                              child: Text(
+                                "Delete",
+                                style: TextStyle(color: Colors.red),
+                              ),
+                              onPressed: () {
+                                DBHelper.instance.delete(expenses.id);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) =>
+                                        HomeScreen()));
+                              },
+                            ),
+                            SimpleDialogOption(
+                              child: Text("cancel"),
+                              onPressed: () => Navigator.of(context).pop(),
+                            )
+                          ],
                         ));
-                      },
+                  },
                   child: Container(
                       height: MediaQuery.of(context).size.height / 5,
                       child: Card(
