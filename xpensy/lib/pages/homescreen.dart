@@ -262,7 +262,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   border: Border.all(
                     color: Colors.deepPurple,
                   ),
-                  color: Colors.white,
+                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(200)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -271,7 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(
                       Icons.note_add,
                       size: 30,
-                      color: Colors.deepPurple,
+                      color: Colors.white,
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
