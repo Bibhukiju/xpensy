@@ -39,11 +39,46 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () async {
-                      final pickedImg =
-                          await picker.getImage(source: ImageSource.gallery);
-                      setState(() {
-                        image = File(pickedImg.path);
-                      });
+                      showDialog(
+                          context: context,
+                          child: SimpleDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            children: <Widget>[
+                              SimpleDialogOption(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.camera_alt),
+                                    Text("Camera"),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  final pickedImg = await picker.getImage(
+                                      source: ImageSource.camera);
+                                  setState(() {
+                                    image = File(pickedImg.path);
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                              SimpleDialogOption(
+                                child: Row(
+                                  children: <Widget>[
+                                    Icon(Icons.image),
+                                    Text("Gallery"),
+                                  ],
+                                ),
+                                onPressed: () async {
+                                  final pickedImg = await picker.getImage(
+                                      source: ImageSource.gallery);
+                                  setState(() {
+                                    image = File(pickedImg.path);
+                                    Navigator.pop(context);
+                                  });
+                                },
+                              ),
+                            ],
+                          ));
                     },
                     child: Container(
                       height: MediaQuery.of(context).size.height / 4,

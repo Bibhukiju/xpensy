@@ -25,7 +25,9 @@ class Details extends StatelessWidget {
                   color: Colors.grey[300],
                   borderRadius: BorderRadius.circular(20)),
               child: expenses.photoname == " "
-                  ? Text("")
+                  ? Hero(
+                      tag: expenses.id,
+                      child: Center(child: expenses==null?Text("No Attachments"):Text(" ")))
                   : Hero(
                       tag: expenses.id,
                       child: ClipRRect(
