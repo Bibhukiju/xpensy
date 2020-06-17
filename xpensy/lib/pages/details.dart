@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/expenseModel.dart';
+import 'package:xpensy/pages/editpage.dart';
 import 'package:xpensy/pages/homescreen.dart';
 
 class Details extends StatelessWidget {
@@ -27,7 +27,10 @@ class Details extends StatelessWidget {
               child: expenses.photoname == " "
                   ? Hero(
                       tag: expenses.id,
-                      child: Center(child: expenses==null?Text("No Attachments"):Text(" ")))
+                      child: Center(
+                          child: expenses == null
+                              ? Text("No Attachments")
+                              : Text(" ")))
                   : Hero(
                       tag: expenses.id,
                       child: ClipRRect(
@@ -119,29 +122,38 @@ class Details extends StatelessWidget {
                 Expanded(
                     child: Container(
                         height: MediaQuery.of(context).size.height / 5,
-                        child: Card(
-                            elevation: 3,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Center(
-                                child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.mode_edit,
-                                  color: Colors.green,
-                                  size: 45,
-                                ),
-                                Divider(
-                                  color: Colors.grey[500],
-                                ),
-                                Text("Ëdit",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w300,
-                                        color: Colors.red)),
-                              ],
-                            ))))),
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) => Editpage(
+                                      expenses: expenses,
+                                    )));
+                          },
+                          child: Card(
+                              elevation: 3,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Center(
+                                  child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.mode_edit,
+                                    color: Colors.green,
+                                    size: 45,
+                                  ),
+                                  Divider(
+                                    color: Colors.grey[500],
+                                  ),
+                                  Text("Ëdit",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.w300,
+                                          color: Colors.red)),
+                                ],
+                              ))),
+                        ))),
                 Expanded(
                     child: GestureDetector(
                   onTap: () {
