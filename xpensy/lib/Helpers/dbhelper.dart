@@ -40,10 +40,6 @@ class DBHelper {
     return await db.query(_tableName);
   }
 
-  Future<List<Map<String, dynamic>>> querybydate(String date) async {
-    Database db = await instance.database;
-    return await db.query(_tableName, where: '$columnId=?', whereArgs: [date]);
-  }
 
   Future update(Map<String, dynamic> row) async {
     Database db = await instance.database;

@@ -149,8 +149,7 @@ class _EditpageState extends State<Editpage> {
                               DatePicker.showDateTimePicker(context,
                                   onConfirm: (date) {
                                 setState(() {
-                                  _selecteddate =
-                                      date.toString().split(" ")[0];
+                                  _selecteddate = date.toString().split(" ")[0];
                                 });
                               }, currentTime: DateTime.now());
                             },
@@ -162,10 +161,9 @@ class _EditpageState extends State<Editpage> {
                                         color: Colors.grey,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                            20,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                20,
                                       ),
                                       Text(DateTime.now()
                                           .toString()
@@ -179,10 +177,9 @@ class _EditpageState extends State<Editpage> {
                                         color: Colors.red,
                                       ),
                                       SizedBox(
-                                        width: MediaQuery.of(context)
-                                                .size
-                                                .width /
-                                            20,
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                20,
                                       ),
                                       Text("$_selecteddate"),
                                     ],
@@ -195,17 +192,23 @@ class _EditpageState extends State<Editpage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
-          backgroundColor: Theme.of(context).primaryColor,
+          splashColor: Colors.red,
+          child: Icon(
+            Icons.mode_edit,
+            color: Colors.white,
+          ),
+          backgroundColor: Colors.deepPurple,
           onPressed: () async {
             int updateId = await DBHelper.instance.update({
               DBHelper.columnId: widget.expenses.id,
               DBHelper.amount:
                   amount.text == "" ? widget.expenses.amount : amount.text,
-              DBHelper.desc:
-                  smallDesc.text == "" ? widget.expenses.desc : smallDesc.text,
-              DBHelper.cdate:
-                  _selecteddate == null ? widget.expenses.date : _selecteddate,
+              DBHelper.desc: smallDesc.text == ""
+                  ? widget.expenses.desc
+                  : smallDesc.text,
+              DBHelper.cdate: _selecteddate == null
+                  ? widget.expenses.date
+                  : _selecteddate,
               DBHelper.photoname: image == null
                   ? widget.expenses.photoname
                   : base64Encode(image.readAsBytesSync())

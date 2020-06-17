@@ -123,17 +123,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ? Hero(
                                           tag: expernse.elementAt(index).id,
                                           child: CircleAvatar(
-                                            backgroundColor: Colors.deepPurple,
-                                            radius: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                20,
-                                            child: Icon(
-                                              Icons.not_interested,
-                                              color: Colors.white,
-                                              size: 45,
-                                            ),
-                                          ),
+                                              backgroundColor:
+                                                  Colors.blue.withOpacity(0.1),
+                                              radius: MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  20,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Icon(
+                                                  Icons.broken_image,
+                                                  color: Colors.black
+                                                      .withOpacity(0.5),
+                                                  size: 45,
+                                                ),
+                                              )),
                                         )
                                       : Hero(
                                           tag: expernse[index].id,
