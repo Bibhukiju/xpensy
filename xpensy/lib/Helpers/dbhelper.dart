@@ -14,6 +14,7 @@ class DBHelper {
   static final desc = "desc";
   static final cdate = "date";
   static final photoname = "photoname";
+  static final category = "category";
   DBHelper._privateConstructor();
   static final DBHelper instance = DBHelper._privateConstructor();
 
@@ -40,7 +41,6 @@ class DBHelper {
     return await db.query(_tableName);
   }
 
-
   Future update(Map<String, dynamic> row) async {
     Database db = await instance.database;
     int id = row[columnId];
@@ -65,7 +65,8 @@ class DBHelper {
     $amount TEXT NOT NULL,
     $cdate TEXT NOT NULL,
     $desc Text NOT NULL,
-    $photoname TEXT
+    $photoname TEXT,
+    $category TEXT
     )
     ''');
   }

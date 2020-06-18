@@ -10,9 +10,7 @@ class Home extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       theme: ThemeData(
-        primaryColor: Colors.deepPurple.shade900,
-        accentColor: Colors.red
-      ),
+          primaryColor: Colors.deepPurple.shade900, accentColor: Colors.red),
     );
   }
 }

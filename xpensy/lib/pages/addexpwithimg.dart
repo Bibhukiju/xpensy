@@ -16,6 +16,7 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
   TextEditingController amount = TextEditingController();
   TextEditingController smallDesc = TextEditingController();
   Future<File> imageFile;
+  String dropDownValue = "Miscellaneous";
   File image;
   final picker = ImagePicker();
 
@@ -187,7 +188,48 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                                       ],
                                     )),
                         )),
-                  )
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Card(
+                      elevation: 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text(
+                            "Category",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.red),
+                          ),
+                          DropdownButton<String>(
+                            value: dropDownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 0,
+                            onChanged: (String newValue) {
+                              setState(() {
+                                dropDownValue = newValue;
+                              });
+                            },
+                            items: <String>[
+                              'Miscellaneous',
+                              'Fooding',
+                              'Clothing',
+                              'Hygiene',
+                              'Stationery'
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             )
@@ -202,6 +244,7 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
             DBHelper.desc: smallDesc.text,
             DBHelper.cdate: DateTime.now().toString().split(" ")[0],
             DBHelper.amount: amount.text,
+            DBHelper.category: dropDownValue,
             DBHelper.photoname: base64Encode(image.readAsBytesSync())
           });
 
