@@ -87,9 +87,16 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                         padding: const EdgeInsets.all(8.0),
                         child: image != null
                             ? Card(
+                                elevation: 10,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: Image.file(image),
                               )
                             : Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 elevation: 10,
                                 child: Icon(
                                   Icons.add_a_photo,
@@ -102,6 +109,9 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         elevation: 10,
                         color: Colors.white,
                         child: TextField(
@@ -121,11 +131,14 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         elevation: 10,
                         color: Colors.white,
                         child: TextField(
                           controller: smallDesc,
-                          maxLines: 7,
+                          maxLines: 2,
                           decoration: InputDecoration(
                             hintText: "Short Description",
                             contentPadding: EdgeInsets.all(20),
@@ -140,6 +153,9 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         elevation: 10,
                         color: Colors.white,
                         child: Padding(
@@ -193,19 +209,25 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       elevation: 10,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          Text(
-                            "Category",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.red),
+                          Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Text(
+                              "Category",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.red),
+                            ),
                           ),
                           DropdownButton<String>(
                             value: dropDownValue,
-                            icon: Icon(Icons.arrow_downward),
+                            underline: Text(""),
+                            icon: Icon(Icons.arrow_drop_down),
                             iconSize: 24,
                             elevation: 0,
                             onChanged: (String newValue) {

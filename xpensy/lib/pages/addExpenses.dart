@@ -13,7 +13,7 @@ class _AddExpensesState extends State<AddExpenses> {
   TextEditingController amount = TextEditingController();
   TextEditingController smallDesc = TextEditingController();
   String dropDownValue = "Miscellaneous";
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +37,9 @@ class _AddExpensesState extends State<AddExpenses> {
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                       elevation: 10,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       color: Colors.white,
                       child: TextField(
                         controller: amount,
@@ -55,6 +58,9 @@ class _AddExpensesState extends State<AddExpenses> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       elevation: 10,
                       color: Colors.white,
                       child: TextField(
@@ -74,6 +80,9 @@ class _AddExpensesState extends State<AddExpenses> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       elevation: 10,
                       color: Colors.white,
                       child: Padding(
@@ -123,6 +132,9 @@ class _AddExpensesState extends State<AddExpenses> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     elevation: 10,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -136,9 +148,10 @@ class _AddExpensesState extends State<AddExpenses> {
                         ),
                         DropdownButton<String>(
                           value: dropDownValue,
-                          icon: Icon(Icons.arrow_downward),
+                          icon: Icon(Icons.arrow_drop_down),
                           iconSize: 24,
                           elevation: 0,
+                          underline: Text(""),
                           onChanged: (String newValue) {
                             setState(() {
                               dropDownValue = newValue;
