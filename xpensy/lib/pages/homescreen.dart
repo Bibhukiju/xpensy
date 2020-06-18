@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:xpensy/Helpers/dbhelper.dart';
+import 'package:xpensy/Helpers/testing.dart';
 import 'package:xpensy/models/expenseModel.dart';
 import 'package:xpensy/pages/addExpenses.dart';
 import 'package:xpensy/pages/addexpwithimg.dart';
@@ -298,6 +299,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       List<Map<String, dynamic>> queryRows =
                           await DBHelper.instance.queryAll();
                       print(queryRows);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) => PieCharted()));
                     },
                   )
                 ],

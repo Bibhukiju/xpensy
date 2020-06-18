@@ -4,18 +4,27 @@ class Expenses {
   final String date;
   final String amount;
   final String photoname;
-  Expenses({this.amount, this.date, this.desc, this.id, this.photoname});
+  final String catergory;
+  Expenses(
+      {this.amount,
+      this.date,
+      this.desc,
+      this.id,
+      this.photoname,
+      this.catergory});
   Expenses.fromJsonMap(Map<String, dynamic> map)
       : id = map["id"],
         desc = map["desc"],
         date = map["date"],
         amount = map["amount"],
+        catergory = map["category"],
         photoname = map["photoname"];
   Map<String, dynamic> toJsonMap() => {
         'id': id,
         'desc': desc,
         'date': date,
         'amount': amount,
-        'photoname': photoname
+        'photoname': photoname,
+        'category': catergory
       };
 }

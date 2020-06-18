@@ -18,6 +18,7 @@ dependencies:
   path_provider:
   provider:
   image_picker:
+  charts_flutter:
 
 dev_dependencies:
   flutter_test:
