@@ -71,7 +71,8 @@ class _AddExpwithImgState extends State<AddExpwithImg> {
                                 ),
                                 onPressed: () async {
                                   final pickedImg = await picker.getImage(
-                                      source: ImageSource.gallery);
+                                      source: ImageSource.gallery,
+                                      imageQuality: 10);
                                   setState(() {
                                     image = File(pickedImg.path);
                                     Navigator.pop(context);

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:xpensy/Helpers/dbhelper.dart';
 import 'package:xpensy/models/expenseModel.dart';
-import 'dbhelper.dart';
+
+var mystyle =
+    TextStyle(fontSize: 25, color: Colors.red, fontWeight: FontWeight.w300);
 
 /// Data class to visualize.
 class _CostsData {
@@ -73,9 +76,22 @@ class _PieChartedState extends State<PieCharted> {
         child: ListView(
           padding: const EdgeInsets.all(8),
           children: <Widget>[
-            Center(child: Text("Pie Chart of Total Expenses")),
+            Center(
+                child: Column(
+              children: <Widget>[
+                Text("Pie Chart", style: mystyle),
+                Text(
+                  "Of",
+                  style: mystyle,
+                ),
+                Text(
+                  "Total Expenses",
+                  style: mystyle,
+                )
+              ],
+            )),
             SizedBox(
-              height: MediaQuery.of(context).size.height / 8,
+              height: MediaQuery.of(context).size.height / 20,
             ),
             Container(
               height: MediaQuery.of(context).size.height / 2,

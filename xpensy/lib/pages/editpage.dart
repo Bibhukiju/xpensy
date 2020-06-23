@@ -192,23 +192,21 @@ class _EditpageState extends State<Editpage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
           splashColor: Colors.red,
           child: Icon(
             Icons.mode_edit,
             color: Colors.white,
           ),
-          backgroundColor: Colors.deepPurple,
           onPressed: () async {
             int updateId = await DBHelper.instance.update({
               DBHelper.columnId: widget.expenses.id,
               DBHelper.amount:
                   amount.text == "" ? widget.expenses.amount : amount.text,
-              DBHelper.desc: smallDesc.text == ""
-                  ? widget.expenses.desc
-                  : smallDesc.text,
-              DBHelper.cdate: _selecteddate == null
-                  ? widget.expenses.date
-                  : _selecteddate,
+              DBHelper.desc:
+                  smallDesc.text == "" ? widget.expenses.desc : smallDesc.text,
+              DBHelper.cdate:
+                  _selecteddate == null ? widget.expenses.date : _selecteddate,
               DBHelper.photoname: image == null
                   ? widget.expenses.photoname
                   : base64Encode(image.readAsBytesSync())

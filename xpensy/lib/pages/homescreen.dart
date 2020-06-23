@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.deepPurple,
+                    color: Theme.of(context).primaryColor,
                   ),
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(200)),
@@ -282,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(
                       Icons.add_a_photo,
                       size: 30,
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -293,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(
                       Icons.pie_chart,
                       size: 30,
-                      color: Colors.deepPurple,
+                      color: Theme.of(context).primaryColor,
                     ),
                     onPressed: () async {
                       List<Map<String, dynamic>> queryRows =

@@ -121,7 +121,8 @@ class _BydatState extends State<Bydat> {
                                                             .id,
                                                         child: CircleAvatar(
                                                           backgroundColor:
-                                                              Colors.deepPurple,
+                                                              Theme.of(context)
+                                                                  .primaryColor,
                                                           radius: MediaQuery.of(
                                                                       context)
                                                                   .size
