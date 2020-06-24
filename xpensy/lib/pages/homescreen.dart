@@ -8,6 +8,9 @@ import 'package:xpensy/pages/addexpwithimg.dart';
 import 'package:xpensy/pages/piePage.dart';
 import 'package:xpensy/pages/querypage.dart';
 import 'details.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+
+const String testDevice = '';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,6 +21,33 @@ class _HomeScreenState extends State<HomeScreen> {
   var _selecteddate;
   bool pressed = false;
   var total = 0;
+  static final MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    testDevices: <String>[],
+    keywords: <String>['expenses', 'money', 'records', 'chart'],
+    birthday: DateTime.now(),
+    childDirected: true,
+  );
+  BannerAd _bannerAd;
+  InterstitialAd _interstitialAd;
+
+  BannerAd createBAd() {
+    return BannerAd(
+        adUnitId: "ca-app-pub-6307423916943548/7799692371",
+        size: AdSize.banner,
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print(event);
+        });
+  }
+
+  InterstitialAd createIAd() {
+    return InterstitialAd(
+        adUnitId: 'ca-app-pub-6307423916943548/7197057140',
+        targetingInfo: targetingInfo,
+        listener: (MobileAdEvent event) {
+          print(event);
+        });
+  }
 
   List<Expenses> expernse;
   myQuery() async {
@@ -31,7 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    FirebaseAdMob.instance
+        .initialize(appId: "ca-app-pub-6307423916943548/7197057140");
+    _bannerAd = createBAd()
+      ..load()
+      ..show(anchorType: AnchorType.top);
     myQuery();
+  }
+
+  @override
+  void dispose() {
+    _bannerAd?.dispose();
+    _interstitialAd?.dispose();
+    super.dispose();
   }
 
   @override
@@ -111,6 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderRadius: BorderRadius.circular(20)),
                             child: ListTile(
                               onTap: () {
+                                createIAd()
+                                  ..load()
+                                  ..show();
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (BuildContext context) => Details(
                                           expenses: expernse.elementAt(index),
@@ -276,7 +321,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     onPressed: () => Navigator.of(context).push(
                         MaterialPageRoute(
-                            builder: (BuildContext context) => AddExpenses())),
+                            builder: (BuildContext context) =>
+                                AddExpenses())),
                   ),
                   IconButton(
                     icon: Icon(

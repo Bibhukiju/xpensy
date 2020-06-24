@@ -92,7 +92,8 @@ class _AddExpensesState extends State<AddExpenses> {
                               DatePicker.showDateTimePicker(context,
                                   onConfirm: (date) {
                                 setState(() {
-                                  _selecteddate = date.toString().split(" ")[0];
+                                  _selecteddate =
+                                      date.toString().split(" ")[0];
                                 });
                               }, currentTime: DateTime.now());
                             },
@@ -104,9 +105,10 @@ class _AddExpensesState extends State<AddExpenses> {
                                         color: Colors.grey,
                                       ),
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                20,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                            20,
                                       ),
                                       Text(DateTime.now()
                                           .toString()
@@ -120,9 +122,10 @@ class _AddExpensesState extends State<AddExpenses> {
                                         color: Colors.red,
                                       ),
                                       SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width /
-                                                20,
+                                        width: MediaQuery.of(context)
+                                                .size
+                                                .width /
+                                            20,
                                       ),
                                       Text("$_selecteddate"),
                                     ],

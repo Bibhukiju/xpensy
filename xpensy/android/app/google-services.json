@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "676213583736",
+    "firebase_url": "https://xpensy-67957.firebaseio.com",
+    "project_id": "xpensy-67957",
+    "storage_bucket": "xpensy-67957.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:676213583736:android:765dd66b5d98a7402e628d",
+        "android_client_info": {
+          "package_name": "com.example.xpensy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "676213583736-0s38bo7pd4esbqbse411rch95sotoj8b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxLSJBKAJg1LnJkMFGo6VnOgS-3JvCYqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "676213583736-0s38bo7pd4esbqbse411rch95sotoj8b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

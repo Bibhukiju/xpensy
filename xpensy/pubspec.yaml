@@ -20,6 +20,7 @@ dependencies:
   image_picker:
   charts_flutter:
   image:
+  firebase_admob: ^0.5.2
 
 dev_dependencies:
   flutter_test:

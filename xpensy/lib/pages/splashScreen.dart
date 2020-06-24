@@ -19,6 +19,11 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.teal[300],
@@ -27,10 +32,18 @@ class _SplashScreenState extends State<SplashScreen> {
           Expanded(
               flex: 2,
               child: Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.teal,
-                  backgroundImage: AssetImage("assets/images/applogo.png"),
-                  radius: 50,
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 5),
+                  height: 200,
+                  width: 200,
+                  child: Container(
+                    height: 100,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.teal,
+                      backgroundImage: AssetImage("assets/images/applogo.png"),
+                      radius: 50,
+                    ),
+                  ),
                 ),
               )),
           Expanded(
